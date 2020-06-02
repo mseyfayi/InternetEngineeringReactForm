@@ -12,12 +12,25 @@ module.exports = {
         node: true,
         es6: true
     },
-    "rules": {
+    rules: {
         "no-restricted-imports": [
             "error",
             {
                 "patterns": ["@material-ui/*/*/*", "!@material-ui/core/test-utils/*"]
             }
         ]
-    }
+    },
+    overrides: [
+        {
+            files: ['**/*.ts'],
+            parser: '@typescript-eslint/parser',
+            rules: {
+                'no-undef': 'off',
+                'no-unused-vars': 'off'
+            },
+            parserOptions: {
+                sourceType: "module"
+            }
+        }
+    ]
 };
