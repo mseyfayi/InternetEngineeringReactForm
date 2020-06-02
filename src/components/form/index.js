@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import Header from "../../common/Header";
+import Header from "../../global/components/Header";
 
 const Form = () => {
     return (

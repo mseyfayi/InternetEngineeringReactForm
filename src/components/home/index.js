@@ -1,12 +1,15 @@
 import React from "react";
-import Header from "../../common/Header";
-import {Link} from "react-router-dom";
+import Header from "../../global/components/Header";
+import renderToast from "../../help/renderToast";
 
 const Home = () => {
+    const handleClick = () => renderToast('koft', 'warning', 'warning');
     return (
         <div>
             <Header text='Home' isHome/>
-            <Link to='/form'>go to form</Link>
+            <div className='d-flex align-items-center justify-content-center' onClick={handleClick}>
+                Show toast
+            </div>
         </div>
     )
 };

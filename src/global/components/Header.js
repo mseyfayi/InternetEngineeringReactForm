@@ -9,7 +9,6 @@ import {useHistory} from "react-router-dom";
 
 const Header = ({text, isHome}) => {
     const history = useHistory();
-    console.log(history);
 
     return <AppBar position="static">
         <Toolbar>
