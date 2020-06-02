@@ -5,7 +5,8 @@ module.exports = {
     ],
     extends: [
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended"
     ],
     env: {
         browser: true,
@@ -22,7 +23,7 @@ module.exports = {
     },
     overrides: [
         {
-            files: ['**/*.ts'],
+            files: ['**/*.ts','**/*.tsx'],
             parser: '@typescript-eslint/parser',
             rules: {
                 'no-undef': 'off',

@@ -1,8 +1,33 @@
 import Axios from "axios";
 import renderToast, {toastTypes} from "./renderToast";
-import {requestOptionType} from "../types";
+import {requestOptionType, thunkActionType} from "../types";
 
-const request = (requestOption: requestOptionType) =>
+const instance = Axios.create({
+    baseURL: 'http://localhost:3001',
+    timeout: 7000,
+    params: {},
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+});
+
+instance.interceptors.request.use((async request => {
+        console.log('>>>>>>>>>>>>', request);
+        return Promise.resolve(request);
+    }
+));
+
+instance.interceptors.response.use(response => {
+    console.log('<<<<<<<<<<<', response);
+    return Promise.resolve(response);
+}, async error => {
+    console.log('<<<<<<error<<<<<', error.response ? {...error.response} : {...error});//cancel and network error have no response
+    return Promise.reject(error);
+});
+
+
+const request: thunkActionType = (requestOption: requestOptionType) =>
     async (dispatch: any) => {
         const {
             method,
@@ -19,6 +44,7 @@ const request = (requestOption: requestOptionType) =>
             reject,
             pendingAction,
             errorAction,
+            successAction,
         } = requestOption;
 
         // Start loading
@@ -27,13 +53,15 @@ const request = (requestOption: requestOptionType) =>
 
         try {
             // Calls "url" by "method" with "data" as body and "headers" and params
-            const response = await Axios.create({url, method, headers, data, timeout, params});
+            const response = await instance.request({url, method, headers, data, timeout, params});
 
             // If axios call was successful
             if (resolve)
                 resolve(response);
+            if (successAction)
+                dispatch(successAction(response.data.data));
             if (successToastMessage)
-                dispatch(renderToast(toastTitle, successToastMessage, toastTypes.SUCCESS));
+                renderToast(toastTitle, successToastMessage, toastTypes.SUCCESS);
 
         } catch (error) {
             // Component unmounted and axios unsubscribed
@@ -56,7 +84,7 @@ const request = (requestOption: requestOptionType) =>
                     errorCodes.forEach(errorCode => {
                         if (code === errorCode.code && !errorCodeActioned) {
                             if (errorCode.toastMessage)
-                                dispatch(renderToast(toastTitle, errorCode.toastMessage, toastTypes.ERROR));
+                                renderToast(toastTitle, errorCode.toastMessage, toastTypes.ERROR);
                             if (errorCode.action)
                                 errorCode.action(error);
                             errorCodeActioned = true;
@@ -68,7 +96,7 @@ const request = (requestOption: requestOptionType) =>
                     if (!reject) {
                         if (errorAction)
                             dispatch(errorAction(failToastMessage));
-                        dispatch(renderToast(toastTitle, failToastMessage, toastTypes.ERROR));
+                        renderToast(toastTitle, failToastMessage, toastTypes.ERROR);
                     } else {
                         reject(error);
                     }
