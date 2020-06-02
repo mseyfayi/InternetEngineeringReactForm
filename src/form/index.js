@@ -1,9 +1,12 @@
 import React from "react";
+import {Link} from "react-router-dom";
+import Header from "../common/Header";
 
 const Form = () => {
     return (
         <div>
-            Here is form
+            <Header text='Form'/>
+            <Link to='/'>go to home</Link>
         </div>
     )
 };
