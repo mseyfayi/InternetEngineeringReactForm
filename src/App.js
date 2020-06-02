@@ -4,8 +4,8 @@ import {
     Route,
     Switch
 } from "react-router-dom";
-import Form from './form'
-import Home from './home'
+import Form from './components/form'
+import Home from './components/home'
 
 const App = () => (
     <Router>
