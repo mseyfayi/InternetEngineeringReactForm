@@ -7,7 +7,7 @@ import {useHistory} from "react-router-dom";
 const Header = ({text, isHome}) => {
     const history = useHistory();
 
-    return <AppBar position="static">
+    return <AppBar position="sticky">
         <Toolbar>
             {!isHome && <IconButton edge="start" color="inherit" aria-label="menu" onClick={history.goBack}>
                 <ArrowBackIcon/>
