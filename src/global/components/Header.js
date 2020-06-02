@@ -1,9 +1,6 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from "@material-ui/core/Typography";
+import {AppBar, IconButton, Typography, Toolbar} from "@material-ui/core";
 import * as PropTypes from 'prop-types';
-import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {useHistory} from "react-router-dom";
 
