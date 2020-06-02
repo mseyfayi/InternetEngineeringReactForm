@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../global/components/Header";
-import renderToast from "../../help/renderToast";
+import renderToast from "../../global/actions/renderToast";
 
 const Home = () => {
     const handleClick = () => renderToast('koft', 'warning', 'warning');
