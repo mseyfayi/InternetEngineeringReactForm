@@ -6,8 +6,9 @@ import {connect} from "react-redux";
 
 type HomeProps = {
     getForms: thunkActionType;
+    forms: object[];
 }
-const Home = ({getForms}: HomeProps) => {
+const Home = ({getForms, forms}: HomeProps) => {
     useEffect(() => {
         getForms();
     }, [getForms]);
@@ -18,9 +19,9 @@ const Home = ({getForms}: HomeProps) => {
     )
 };
 
-const mapStateToProps: mapStateToPropsType = (state: object) => ({});
+const mapStateToProps: mapStateToPropsType = (state) => ({forms: state.home.data});
 const mapDispatchToProps: mapDispatchToPropsType = ({
     getForms
 });
-export default connect(mapStateToProps,mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
 
