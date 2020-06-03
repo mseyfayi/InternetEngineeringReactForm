@@ -3,24 +3,31 @@ import {formType, mapDispatchType, mapStateType, thunkActionType} from "../../gl
 import HomeFormsList from "./HomeFormsList";
 import {getForms} from "./homeActions";
 import {connect} from "react-redux";
+import IsLoading from "../../global/components/IsLoading";
 
 interface PropsType {
     getForms: thunkActionType;
-    forms: Array<formType>;
+    formsData: Array<formType>;
+    formsIsLoading: boolean;
 }
 
-const HomeContainer = ({getForms, forms}: (PropsType & any)) => {
+const HomeContainer = ({getForms, formsData, formsIsLoading}: (PropsType & any)) => {
     useEffect(() => {
         getForms();
     }, [getForms]);
     return (
-        <div className='flex-1 justify-content-center bg-light'>
-            <HomeFormsList data={forms}/>
+        <div className='p-5 flex-1 justify-content-center bg-light'>
+            <IsLoading isLoading={formsIsLoading}>
+                    <HomeFormsList data={formsData}/>
+            </IsLoading>
         </div>
     );
 };
 
-const mapStateToProps: mapStateType = (state) => ({forms: state.home.data});
+const mapStateToProps: mapStateType = (state) => ({
+    formsData: state.formsList.data,
+    formsIsLoading: state.formsList.isLoading,
+});
 const mapDispatchToProps: mapDispatchType = {getForms};
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

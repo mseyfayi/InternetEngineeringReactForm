@@ -1,17 +1,17 @@
 import HomeActionTypes from "./homeActionTypes";
 import {formType, reduxActionType} from "../../global/types";
 
-interface homeStateType {
+interface FormsListStateType {
     isLoading: boolean;
     data: Array<formType>;
 }
 
-const initialState: homeStateType = {
+const formsListInitialState: FormsListStateType = {
     isLoading: false,
     data: []
 };
 
-const homeReducer = (state = initialState, action: reduxActionType) => {
+export const formsListReducer = (state = formsListInitialState, action: reduxActionType) => {
     switch (action.type) {
         case HomeActionTypes.GET_FORMS_PENDING:
             return {...state, isLoading: true};
@@ -23,4 +23,3 @@ const homeReducer = (state = initialState, action: reduxActionType) => {
             return state;
     }
 };
-export default homeReducer
