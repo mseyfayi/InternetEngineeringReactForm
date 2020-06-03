@@ -1,19 +1,10 @@
-import React, {useEffect} from "react";
-import {Link} from "react-router-dom";
+import React from "react";
 import Header from "../../global/components/Header";
-import {useParams} from 'react-router-dom';
+import FormContainer from "./FormContainer";
 
-const Form = () => {
-    const {id} = useParams();
-
-    useEffect(() => {
-
-    }, [id]);
-    return (
-        <div>
-            <Header text='Form'/>
-            <Link to='/'>go to home</Link>
-        </div>
-    )
-};
+const Form = () =>
+    <>
+        <Header text='Form'/>
+        <FormContainer/>
+    </>;
 export default Form
