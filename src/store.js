@@ -7,7 +7,7 @@ import {logger} from "redux-logger/src";
 
 const reducer = combineReducers({
     formsList: formsListReducer,
-    formDetailList: formDetailReducer,
+    formDetail: formDetailReducer,
     toastr: toastrReducer
 });
 
