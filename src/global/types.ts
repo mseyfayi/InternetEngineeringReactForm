@@ -47,10 +47,10 @@ export interface optionType {
 }
 
 export enum fieldTypesEnum {
-    Text = 'text',
-    Number = 'number',
-    Location = 'location',
-    Date = 'date',
+    Text = 'Text',
+    Number = 'Number',
+    Location = 'Location',
+    Date = 'Date',
 }
 
 export interface fieldType {
