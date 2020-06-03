@@ -1,11 +1,26 @@
-import {fieldType} from "../../../global/types";
+import {fieldTypesEnum, IFormInputPropsType} from "../../../global/types";
 import React from "react";
-import FormFieldInput from "./FormFiledInput";
+import FormFieldInputText from "./FormFeildInputText";
+import FormFieldInputLocation from "./FormFieldInputLocation";
+import FormFieldInputDate from "./FormFieldInputDate"
+import FormFieldInputSelect from "./FormFieldInputSelect";
 
-interface PropsType {
-    field: fieldType
-}
+const FormField = ({...props}: IFormInputPropsType) => {
+    if (props.options)
+        return <FormFieldInputSelect  {...props} options={props.options}/>;
 
-const FormField = ({field}: PropsType) =>
-    <FormFieldInput type={field.type} field={field}/>;
+    switch (props.type) {
+        case fieldTypesEnum.Date:
+            return <FormFieldInputDate  {...props} value={props.value as Date | null}/>;
+        case fieldTypesEnum.Location:
+            return <FormFieldInputLocation  {...props}/>;
+        case fieldTypesEnum.Text:
+            return <FormFieldInputText   {...props} value={props.value as string | number}/>;
+        case fieldTypesEnum.Number:
+            return <FormFieldInputText  {...props} value={props.value as string | number} isNumber/>;
+        default:
+            return null;
+    }
+};
+
 export default FormField

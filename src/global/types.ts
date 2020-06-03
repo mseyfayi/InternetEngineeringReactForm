@@ -67,9 +67,11 @@ export interface formType {
     fields: Array<fieldType>
 }
 
-export interface IFormInputPropsType extends fieldType {
-    value: string | number | Date|null;
+export type IFormInputValuesType = string | number | Date | null;
 
-    onChange(value: string | Date | number | null): void;
+export interface IFormInputPropsType extends fieldType {
+    value: IFormInputValuesType;
+
+    onChange(value: IFormInputValuesType): void;
 }
 
