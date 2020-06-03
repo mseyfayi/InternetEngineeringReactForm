@@ -1,4 +1,4 @@
-import {normalActionType, thunkActionType} from "../../global/types";
+import {formType, normalActionType, thunkActionType} from "../../global/types";
 import api from "../../global/api";
 import {request} from "../../global/actions/index";
 import HomeActionTypes from "./homeActionTypes";
@@ -13,7 +13,7 @@ export const getForms: thunkActionType = () => dispatch => {
     }))
 };
 
-const getFormsSuccess: normalActionType = (data: object) => ({
+const getFormsSuccess: normalActionType = (data: Array<formType>) => ({
     type: HomeActionTypes.GET_FORMS_SUCCESS,
     payload: data
 });

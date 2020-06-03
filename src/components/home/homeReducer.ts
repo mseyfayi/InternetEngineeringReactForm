@@ -1,9 +1,9 @@
 import HomeActionTypes from "./homeActionTypes";
-import {reduxActionType} from "../../global/types";
+import {formType, reduxActionType} from "../../global/types";
 
 interface homeStateType {
     isLoading: boolean;
-    data: object[];
+    data: Array<formType>;
 }
 
 const initialState: homeStateType = {

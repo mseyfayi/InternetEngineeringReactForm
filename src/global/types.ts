@@ -1,8 +1,8 @@
 import {Method as axiosMethods} from "axios";
 import HomeActionTypes from "../components/home/homeActionTypes";
 
-export type mapStateToPropsType = (state: any) => object
-export type mapDispatchToPropsType = object
+export type mapStateType = (state: any) => object
+export type mapDispatchType = object
 
 export interface reduxActionType {
     //todo add others
@@ -31,7 +31,7 @@ export interface requestOptionType {
     toastTitle?: string,
     successToastMessage?: string,
     failToastMessage?: string,
-    errorCodes?: errorCodesType[],
+    errorCodes?: Array<errorCodesType>,
     successAction: thunkActionType,
     errorAction: thunkActionType,
     pendingAction: thunkActionType,
@@ -39,4 +39,30 @@ export interface requestOptionType {
     resolve(response?: object): () => void,
 
     reject(error?: any): () => void
+}
+
+export interface optionType {
+    label: string;
+    value: any;
+}
+
+export enum fieldTypesEnum {
+    Text = 'text',
+    Number = 'number',
+    Location = 'location',
+    Date = 'date',
+}
+
+export interface fieldType {
+    name: string;
+    title: string;
+    type: fieldTypesEnum;
+    required?: boolean;
+    options?: Array<optionType>;
+}
+
+export interface formType {
+    title: string;
+    id: number;
+    fields: Array<fieldType>
 }
