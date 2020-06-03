@@ -1,10 +1,14 @@
-import React from "react";
-import {AppBar, IconButton, Typography, Toolbar} from "@material-ui/core";
-import * as PropTypes from 'prop-types';
+import React from 'react';
+import {AppBar, IconButton, Toolbar, Typography} from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import {useHistory} from "react-router-dom";
+import {useHistory} from 'react-router-dom';
 
-const Header = ({text, isHome}) => {
+interface Props {
+    text: string;
+    isHome?: boolean;
+}
+
+const Header = ({text, isHome}: Props) => {
     const history = useHistory();
 
     return <AppBar position="sticky">
@@ -18,11 +22,6 @@ const Header = ({text, isHome}) => {
             </Typography>
         </Toolbar>
     </AppBar>;
-};
-
-Header.propTypes = {
-    text: PropTypes.string.isRequired,
-    isHome: PropTypes.bool
 };
 
 export default Header
