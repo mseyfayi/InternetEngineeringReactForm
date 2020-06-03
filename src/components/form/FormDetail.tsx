@@ -11,15 +11,26 @@ type stateType = {
     [key: string]: IFormInputValuesType;
 }
 
+type errorType = {
+    [key: string]: string | null;
+}
+
 const FormDetail = ({fields}: PropsType) => {
-    const [state, setState] = useState<stateType>(fields.reduce((obj, field) => ({...obj, [field.name]: null}), {}));
+    const [values, setValues] = useState<stateType>(fields.reduce((obj, field) => ({...obj, [field.name]: null}), {}));
+    const [errors, setErrors] = useState<errorType>(fields.reduce((obj, field) => ({...obj, [field.name]: null}), {}));
 
-    const getHandleChange = (name: string) => (value: IFormInputValuesType) => setState({...state, [name]: value});
+    const getValue = (name: string): IFormInputValuesType => values[name];
+    const getError = (name: string): string | null => errors[name];
 
-    const getValue = (name: string): IFormInputValuesType => state[name];
+    const getHandleChange = (name: string) => (value: IFormInputValuesType) => setValues({...values, [name]: value});
+    const getHandleError = (name: string) => (error: string | null) => setErrors({...errors, [name]: error});
 
     const submit = () => {
-        console.log(state);
+        fields
+            .filter(item => item.required)
+            .map(item => item.name)
+            .filter(name => !getValue(name))
+            .forEach(name => getHandleError(name)('required'))
     };
 
     return (
@@ -29,6 +40,7 @@ const FormDetail = ({fields}: PropsType) => {
                     {...item}
                     key={item.name}
                     value={getValue(item.name)}
+                    error={getError(item.name)}
                     onChange={getHandleChange(item.name)}
                 />
             )}

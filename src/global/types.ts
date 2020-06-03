@@ -77,3 +77,8 @@ export interface IFormInputPropsType extends fieldType {
     onChange(value: IFormInputValuesType): void;
 }
 
+export interface IFormFieldPropsType extends IFormInputPropsType {
+    error: string | null;
+    touched: boolean;
+}
+
