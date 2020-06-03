@@ -7,5 +7,5 @@ interface PropsType {
 }
 
 const FormField = ({field}: PropsType) =>
-    <FormFieldInput isOption={!!field.options} type={field.type} field={field}/>;
+    <FormFieldInput type={field.type} field={field}/>;
 export default FormField

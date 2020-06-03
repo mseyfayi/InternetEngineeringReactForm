@@ -3,16 +3,17 @@ import React from "react";
 import FormFieldInputText from "./FormFeildInputText";
 import FormFieldInputLocation from "./FormFieldInputLocation";
 import FormFieldInputDate from "./FormFieldInputDate"
+import FormFieldInputSelect from "./FormFieldInputSelect";
 
 interface PropsType {
-    isOption: boolean;
     type: fieldTypesEnum;
     field: fieldType;
 }
 
-const FormFieldInput = ({isOption, type, field}: PropsType) => {
-    if (isOption)
-        return <div>options</div>;
+const FormFieldInput = ({type, field}: PropsType) => {
+    if (field.options)
+        return <FormFieldInputSelect value={null} {...field} options={field.options} onChange={() => {
+        }}/>;
 
     switch (type) {
         case fieldTypesEnum.Date:
