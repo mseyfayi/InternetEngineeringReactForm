@@ -7,7 +7,7 @@ interface PropsType extends IFormInputPropsType {
     value: latLng | null;
 }
 
-const FormFieldInputLocation = ({name, title, value, onChange}: IFormInputPropsType) => {
+const FormFieldInputLocation = ({name, title, value, required, onChange}: PropsType) => {
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => setOpen(true);
@@ -17,6 +17,7 @@ const FormFieldInputLocation = ({name, title, value, onChange}: IFormInputPropsT
     return (
         <>
             <TextField
+                required={required}
                 InputLabelProps={{shrink: (!!value)}}
                 label={title}
                 id={name}

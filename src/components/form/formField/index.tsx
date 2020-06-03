@@ -1,4 +1,4 @@
-import {fieldTypesEnum, IFormInputPropsType} from "../../../global/types";
+import {fieldTypesEnum, IFormInputPropsType, latLng} from "../../../global/types";
 import React from "react";
 import FormFieldInputText from "./FormFeildInputText";
 import FormFieldInputLocation from "./FormFieldInputLocation";
@@ -13,7 +13,7 @@ const FormField = ({...props}: IFormInputPropsType) => {
         case fieldTypesEnum.Date:
             return <FormFieldInputDate  {...props} value={props.value as Date | null}/>;
         case fieldTypesEnum.Location:
-            return <FormFieldInputLocation  {...props}/>;
+            return <FormFieldInputLocation  {...props} value={props.value as latLng | null}/>;
         case fieldTypesEnum.Text:
             return <FormFieldInputText   {...props} value={props.value as string | number}/>;
         case fieldTypesEnum.Number:

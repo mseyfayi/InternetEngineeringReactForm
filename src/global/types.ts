@@ -67,7 +67,9 @@ export interface formType {
     fields: Array<fieldType>
 }
 
-export type IFormInputValuesType = string | number | Date | null;
+export type latLng = { lat: number; lng: number; };
+
+export type IFormInputValuesType = string | number | latLng | Date | null;
 
 export interface IFormInputPropsType extends fieldType {
     value: IFormInputValuesType;

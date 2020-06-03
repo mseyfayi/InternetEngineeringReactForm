@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {fieldType, IFormInputValuesType} from "../../global/types";
 import FormField from './formField';
+import {Button} from '@material-ui/core';
 
 interface PropsType {
     fields: Array<fieldType>;
@@ -17,16 +18,30 @@ const FormDetail = ({fields}: PropsType) => {
 
     const getValue = (name: string): IFormInputValuesType => state[name];
 
-    return <div className='flex-1 flex-column'>
-        {fields.map(item =>
-            <FormField
-                {...item}
-                key={item.name}
-                value={getValue(item.name)}
-                onChange={getHandleChange(item.name)}
-            />
-        )}
-    </div>;
+    const submit = () => {
+        console.log(state);
+    };
+
+    return (
+        <div className='flex-1 flex-column'>
+            {fields.map(item =>
+                <FormField
+                    {...item}
+                    key={item.name}
+                    value={getValue(item.name)}
+                    onChange={getHandleChange(item.name)}
+                />
+            )}
+            <Button
+                color="primary"
+                variant="contained"
+                className='m-1 mt-5 align-self-start col-5'
+                onClick={submit}
+            >
+                Submit
+            </Button>
+        </div>
+    );
 };
 
 export default FormDetail

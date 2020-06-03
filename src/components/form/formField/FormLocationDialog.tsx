@@ -10,6 +10,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import {TransitionProps} from '@material-ui/core/transitions';
 import MapContainer from "./MapContainer";
+import {latLng} from "../../../global/types";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -37,7 +38,7 @@ interface PropsType {
 
     onClose(): void;
 
-    save(location:string): void;
+    save(location: latLng): void;
 }
 
 const FormLocationDialog = ({save, open, onClose}: PropsType) => {
@@ -52,7 +53,7 @@ const FormLocationDialog = ({save, open, onClose}: PropsType) => {
     };
 
     const handleSave = () => {
-        save(`(${lat}, ${lng})`);
+        save({lat, lng});
         onClose();
     };
 

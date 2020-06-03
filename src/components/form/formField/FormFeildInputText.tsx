@@ -9,10 +9,11 @@ interface PropsType extends IFormInputPropsType {
     onChange(value: string | number | null): void;
 }
 
-const FormFieldInputText = ({name, title, isNumber, value, onChange}: PropsType) => {
+const FormFieldInputText = ({name, required, title, isNumber, value, onChange}: PropsType) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value);
     return <TextField
         id={name}
+        required={required}
         label={title}
         value={value}
         type={isNumber ? "number" : undefined}

@@ -10,13 +10,14 @@ interface PropsType extends IFormInputPropsType {
     onChange(value: Date | null): void;
 }
 
-const FormFieldInputText = ({name, title, value, onChange}: PropsType) => {
+const FormFieldInputText = ({name, required, title, value, onChange}: PropsType) => {
     const handleDateChange = (date: Date | null) => {
         onChange(date);
     };
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
+                required={required}
                 disableToolbar
                 variant="inline"
                 format="MM/dd/yyyy"
