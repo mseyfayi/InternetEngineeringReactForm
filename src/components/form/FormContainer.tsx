@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {fieldType, mapDispatchType, mapStateType, thunkActionType} from "../../global/types";
 import {getFormDetail} from "./formActions";
 import {connect} from "react-redux";
-import IsLoading from "../../global/components/IsLoading";
+import {IsLoading, MyContainer} from "../../global/components";
 import {useParams} from "react-router";
 
 interface PropsType {
@@ -21,11 +21,11 @@ const FormContainer = ({formDetailIsLoading, formTitle, formId, formFields, getF
     }, [getFormDetail, id]);
 
     return (
-        <div className='p-5 flex-1 justify-content-center bg-light'>
+        <MyContainer>
             <IsLoading isLoading={formDetailIsLoading}>
 
             </IsLoading>
-        </div>
+        </MyContainer>
     );
 };
 
