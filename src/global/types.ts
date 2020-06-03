@@ -68,9 +68,8 @@ export interface formType {
 }
 
 export interface IFormInputPropsType extends fieldType {
-    value: string;
-    isNumber?: boolean;
+    value: string | number | Date|null;
 
-    onChange(value: string): void;
+    onChange(value: string | Date | number | null): void;
 }
 

@@ -7,11 +7,11 @@ interface PropsType {
 }
 
 const FormDetail = ({fields}: PropsType) =>
-    <>
+    <div className='flex-1 flex-column'>
         {fields.map(item =>
             <FormField key={item.name} field={item}/>
         )}
-    </>;
+    </div>;
 
 export default FormDetail
 

@@ -12,7 +12,7 @@ const FormFieldInputLocation = ({name, title, value, onChange}: IFormInputPropsT
     const handleClose = () => setOpen(false);
 
     return (
-        <div>
+        <>
             <TextField
                 id={name}
                 label={title}
@@ -20,10 +20,8 @@ const FormFieldInputLocation = ({name, title, value, onChange}: IFormInputPropsT
                 disabled
                 onClick={handleOpen}
             />
-            <FormLocationDialog save={() => {
-                //todo
-            }} onClose={handleClose} open={open}/>
-        </div>
+            <FormLocationDialog save={onChange} onClose={handleClose} open={open}/>
+        </>
     );
 };
 export default FormFieldInputLocation

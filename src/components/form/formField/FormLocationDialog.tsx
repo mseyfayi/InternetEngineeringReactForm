@@ -37,7 +37,7 @@ interface PropsType {
 
     onClose(): void;
 
-    save(lat?: number, lng?: number): void;
+    save(location:string): void;
 }
 
 const FormLocationDialog = ({save, open, onClose}: PropsType) => {
@@ -52,7 +52,7 @@ const FormLocationDialog = ({save, open, onClose}: PropsType) => {
     };
 
     const handleSave = () => {
-        save(lat, lng);
+        save(`(${lat}, ${lng})`);
         onClose();
     };
 

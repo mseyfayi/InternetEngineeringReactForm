@@ -2,7 +2,14 @@ import {IFormInputPropsType} from "../../../global/types";
 import React from "react";
 import {TextField} from '@material-ui/core';
 
-const FormFieldInputText = ({name, title, isNumber, value, onChange}: IFormInputPropsType) => {
+interface PropsType extends IFormInputPropsType {
+    isNumber?: boolean;
+    value: string | number;
+
+    onChange(value: string | number | null): void;
+}
+
+const FormFieldInputText = ({name, title, isNumber, value, onChange}: PropsType) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value);
     return <TextField
         id={name}

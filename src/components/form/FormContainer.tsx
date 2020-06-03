@@ -4,7 +4,7 @@ import {getFormDetail} from "./formActions";
 import {connect} from "react-redux";
 import {IsLoading, MyContainer} from "../../global/components";
 import {useParams} from "react-router";
-import {Typography} from "@material-ui/core";
+import {Container, Typography} from "@material-ui/core";
 import FormDetail from "./FormDetail";
 
 interface PropsType {
@@ -25,10 +25,13 @@ const FormContainer = ({formDetailIsLoading, formTitle, formId, formFields, getF
     return (
         <MyContainer>
             <IsLoading isLoading={formDetailIsLoading}>
+                <Container maxWidth='xs' className='d-flex flex-column align-items-stretch ml-0'>
+
                 <Typography variant='h5'>
                     {`${formTitle} "${formId}"`}
                 </Typography>
                 <FormDetail fields={formFields}/>
+                </Container>
             </IsLoading>
         </MyContainer>
     );
