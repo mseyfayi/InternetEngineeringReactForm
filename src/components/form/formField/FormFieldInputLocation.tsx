@@ -14,10 +14,10 @@ const FormFieldInputLocation = ({name, title, value, onChange}: IFormInputPropsT
     return (
         <>
             <TextField
-                id={name}
+                InputLabelProps={{shrink: (!!value)}}
                 label={title}
+                id={name}
                 value={value}
-                disabled
                 onClick={handleOpen}
             />
             <FormLocationDialog save={onChange} onClose={handleClose} open={open}/>
