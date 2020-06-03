@@ -7,8 +7,13 @@ interface PropsType extends IFormInputPropsType {
     value: latLng | null;
 }
 
-const FormFieldInputLocation = ({name, title, value, required, onChange}: PropsType) => {
+const FormFieldInputLocation = ({name, title, value, required, onBlur, onChange}: PropsType) => {
     const [open, setOpen] = React.useState(false);
+
+    const handleClick = () => {
+        handleOpen();
+        onBlur();
+    };
 
     const handleOpen = () => setOpen(true);
 
@@ -22,7 +27,7 @@ const FormFieldInputLocation = ({name, title, value, required, onChange}: PropsT
                 label={title}
                 id={name}
                 value={value && `(${value.lat} ${value.lng})`}
-                onClick={handleOpen}
+                onClick={handleClick}
             />
             <FormLocationDialog save={onChange} onClose={handleClose} open={open}/>
         </>

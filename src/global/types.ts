@@ -74,6 +74,7 @@ export type IFormInputValuesType = string | number | latLng | Date | null;
 export interface IFormInputPropsType extends fieldType {
     value: IFormInputValuesType;
 
+    onBlur(): void;
     onChange(value: IFormInputValuesType): void;
 }
 

@@ -6,7 +6,7 @@ interface PropsType extends IFormInputPropsType {
     options: Array<optionType>;
 }
 
-const FormFieldInputSelect = ({name, title, value, required, onChange, options}: PropsType) => {
+const FormFieldInputSelect = ({name, title, value, required, onChange, onBlur, options}: PropsType) => {
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => onChange(event.target.value as string);
 
@@ -17,6 +17,7 @@ const FormFieldInputSelect = ({name, title, value, required, onChange, options}:
             labelId={name + 'label'}
             id={name}
             value={value}
+            onBlur={onBlur}
             onChange={handleChange}
         >
             {options.map(option =>

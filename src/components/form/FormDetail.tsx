@@ -15,15 +15,25 @@ type errorType = {
     [key: string]: string | null;
 }
 
+type touchedType = {
+    [key: string]: boolean;
+}
+
 const FormDetail = ({fields}: PropsType) => {
     const [values, setValues] = useState<stateType>(fields.reduce((obj, field) => ({...obj, [field.name]: null}), {}));
     const [errors, setErrors] = useState<errorType>(fields.reduce((obj, field) => ({...obj, [field.name]: null}), {}));
+    const [touched, setTouched] = useState<touchedType>(fields.reduce((obj, field) => ({
+        ...obj,
+        [field.name]: false
+    }), {}));
 
     const getValue = (name: string): IFormInputValuesType => values[name];
     const getError = (name: string): string | null => errors[name];
+    const getTouched = (name: string): boolean => touched[name];
 
     const getHandleChange = (name: string) => (value: IFormInputValuesType) => setValues({...values, [name]: value});
     const getHandleError = (name: string) => (error: string | null) => setErrors({...errors, [name]: error});
+    const getHandleTouched = (name: string) => () => setTouched({...touched, [name]: true});
 
     const submit = () => {
         fields
@@ -35,13 +45,16 @@ const FormDetail = ({fields}: PropsType) => {
 
     return (
         <div className='flex-1 flex-column'>
-            {fields.map(item =>
+            {fields.map(({name, ...item}) =>
                 <FormField
                     {...item}
-                    key={item.name}
-                    value={getValue(item.name)}
-                    error={getError(item.name)}
-                    onChange={getHandleChange(item.name)}
+                    name={name}
+                    key={name}
+                    touched={getTouched(name)}
+                    value={getValue(name)}
+                    error={getError(name)}
+                    onBlur={getHandleTouched(name)}
+                    onChange={getHandleChange(name)}
                 />
             )}
             <Button

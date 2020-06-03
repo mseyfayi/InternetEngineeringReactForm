@@ -10,7 +10,7 @@ interface PropsType extends IFormInputPropsType {
     onChange(value: Date | null): void;
 }
 
-const FormFieldInputText = ({name, required, title, value, onChange}: PropsType) => {
+const FormFieldInputText = ({name, required, title, value, onChange, onBlur}: PropsType) => {
     const handleDateChange = (date: Date | null) => {
         onChange(date);
     };
@@ -24,6 +24,7 @@ const FormFieldInputText = ({name, required, title, value, onChange}: PropsType)
                 id={name}
                 label={title}
                 value={value}
+                onBlur={onBlur}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{
                     'aria-label': 'change date',
