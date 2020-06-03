@@ -4,6 +4,7 @@ import HomeFormsList from "./HomeFormsList";
 import {getForms} from "./homeActions";
 import {connect} from "react-redux";
 import IsLoading from "../../global/components/IsLoading";
+import {Container} from '@material-ui/core';
 
 interface PropsType {
     getForms: thunkActionType;
@@ -16,10 +17,12 @@ const HomeContainer = ({getForms, formsData, formsIsLoading}: (PropsType & any))
         getForms();
     }, [getForms]);
     return (
-        <div className='p-5 flex-1 justify-content-center bg-light'>
-            <IsLoading isLoading={formsIsLoading}>
+        <div className='flex-1 justify-content-center bg-light'>
+            <Container maxWidth='md' className='mt-5'>
+                <IsLoading isLoading={formsIsLoading}>
                     <HomeFormsList data={formsData}/>
-            </IsLoading>
+                </IsLoading>
+            </Container>
         </div>
     );
 };

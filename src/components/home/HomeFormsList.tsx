@@ -8,7 +8,7 @@ interface PropsType {
 }
 
 const HomeFormsList = ({data}: PropsType) =>
-    <List component="nav" className='m-3 col-5 border'>
+    <List component="nav" className='border'>
         {data.map(item => <HomeFormsListItem key={item.id} item={item}/>)}
     </List>;
 
