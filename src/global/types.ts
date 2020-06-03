@@ -66,3 +66,11 @@ export interface formType {
     id: number;
     fields: Array<fieldType>
 }
+
+export interface IFormInputPropsType extends fieldType {
+    value: string;
+    isNumber?: boolean;
+
+    onChange(value: string): void;
+}
+

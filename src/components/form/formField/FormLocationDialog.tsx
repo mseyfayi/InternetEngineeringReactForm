@@ -32,45 +32,47 @@ const Transition = React.forwardRef(function Transition(
 
 const defaultCenter = {lat: 35.8037, lng: 51.3940};
 
-export default function FullScreenDialog() {
+interface PropsType {
+    open: boolean;
+
+    onClose(): void;
+
+    save(lat?: number, lng?: number): void;
+}
+
+const FormLocationDialog = ({save, open, onClose}: PropsType) => {
     const classes = useStyles();
 
     const [lat, setLat] = useState(defaultCenter.lat);
     const [lng, setLng] = useState(defaultCenter.lng);
 
-
-    const onLocationChanged = (lat:number,lng:number) => {
+    const onLocationChanged = (lat: number, lng: number) => {
         setLat(lat);
         setLng(lng);
     };
 
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => setOpen(true);
-
-    const handleClose = () => setOpen(false);
+    const handleSave = () => {
+        save(lat, lng);
+        onClose();
+    };
 
     return (
-        <div>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Open full-screen dialog
-            </Button>
-            <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-                <AppBar className={classes.appBar}>
-                    <Toolbar>
-                        <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                            <CloseIcon/>
-                        </IconButton>
-                        <Typography variant="h6" className={classes.title}>
-                            Location
-                        </Typography>
-                        <Button autoFocus color="inherit" onClick={handleClose}>
-                            save
-                        </Button>
-                    </Toolbar>
-                </AppBar>
-                <MapContainer lat={lat} lng={lng} onClick={onLocationChanged} defaultCenter={defaultCenter}/>
-            </Dialog>
-        </div>
+        <Dialog fullScreen open={open} onClose={onClose} TransitionComponent={Transition}>
+            <AppBar className={classes.appBar}>
+                <Toolbar>
+                    <IconButton edge="start" color="inherit" onClick={onClose} aria-label="close">
+                        <CloseIcon/>
+                    </IconButton>
+                    <Typography variant="h6" className={classes.title}>
+                        Location
+                    </Typography>
+                    <Button autoFocus color="inherit" onClick={handleSave}>
+                        save
+                    </Button>
+                </Toolbar>
+            </AppBar>
+            <MapContainer lat={lat} lng={lng} onClick={onLocationChanged} defaultCenter={defaultCenter}/>
+        </Dialog>
     );
-}
+};
+export default FormLocationDialog
