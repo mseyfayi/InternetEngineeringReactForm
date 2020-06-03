@@ -5,12 +5,8 @@ import {Form, Home} from "./components";
 const App = () =>
     <Router>
         <Switch>
-            <Route path="/form">
-                <Form/>
-            </Route>
-            <Route path="/">
-                <Home/>
-            </Route>
+            <Route path="/form/:id" component={Form}/>
+            <Route path="/" component={Home}/>
         </Switch>
     </Router>;
 
