@@ -1,6 +1,7 @@
 import {fieldType, fieldTypesEnum} from "../../../global/types";
 import React from "react";
 import FormFieldInputText from "./FormFeildInputText";
+import FormLocationDialog from "./FormLocationDialog";
 
 interface PropsType {
     isOption: boolean;
@@ -16,7 +17,7 @@ const FormFieldInput = ({isOption, type, field}: PropsType) => {
         case fieldTypesEnum.Date:
             return <div>fieldTypesEnum.Date</div>;
         case fieldTypesEnum.Location:
-            return <div>fieldTypesEnum.Location</div>;
+            return <FormLocationDialog/>;
         case fieldTypesEnum.Number:
             return <FormFieldInputText value={''} {...field} onChange={()=>{}} isNumber/>;
         case fieldTypesEnum.Text:
