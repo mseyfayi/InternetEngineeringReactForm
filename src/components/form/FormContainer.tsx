@@ -4,6 +4,8 @@ import {getFormDetail} from "./formActions";
 import {connect} from "react-redux";
 import {IsLoading, MyContainer} from "../../global/components";
 import {useParams} from "react-router";
+import {Typography} from "@material-ui/core";
+import FormDetail from "./FormDetail";
 
 interface PropsType {
     formDetailIsLoading: boolean;
@@ -23,7 +25,10 @@ const FormContainer = ({formDetailIsLoading, formTitle, formId, formFields, getF
     return (
         <MyContainer>
             <IsLoading isLoading={formDetailIsLoading}>
-
+                <Typography variant='h5'>
+                    {`${formTitle} "${formId}"`}
+                </Typography>
+                <FormDetail fields={formFields}/>
             </IsLoading>
         </MyContainer>
     );
