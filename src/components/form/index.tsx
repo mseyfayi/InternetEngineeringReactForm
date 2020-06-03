@@ -7,7 +7,7 @@ const Form = () => {
     const {id} = useParams();
 
     useEffect(() => {
-        //todo get form
+
     }, [id]);
     return (
         <div>

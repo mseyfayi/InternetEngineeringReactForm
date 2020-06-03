@@ -1,12 +1,12 @@
 import {Method as axiosMethods} from "axios";
 import HomeActionTypes from "../components/home/homeActionTypes";
+import FormActionTypes from "../components/form/formActionTypes";
 
 export type mapStateType = (state: any) => object
 export type mapDispatchType = object
 
 export interface reduxActionType {
-    //todo add others
-    type: HomeActionTypes,
+    type: HomeActionTypes | FormActionTypes,
     payload?: any,
     meta?: any
 }
