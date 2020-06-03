@@ -7,7 +7,7 @@ interface PropsType {
     fields: Array<fieldType>;
 }
 
-type stateType = {
+export type valuesType = {
     [key: string]: IFormInputValuesType;
 }
 
@@ -20,7 +20,7 @@ type touchedType = {
 }
 
 const FormDetail = ({fields}: PropsType) => {
-    const [values, setValues] = useState<stateType>(fields.reduce((obj, field) => ({...obj, [field.name]: null}), {}));
+    const [values, setValues] = useState<valuesType>(fields.reduce((obj, field) => ({...obj, [field.name]: null}), {}));
     const [errors, setErrors] = useState<errorType>(fields.reduce((obj, field) => ({...obj, [field.name]: null}), {}));
     const [touched, setTouched] = useState<touchedType>(fields.reduce((obj, field) => ({
         ...obj,

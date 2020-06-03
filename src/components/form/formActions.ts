@@ -2,6 +2,7 @@ import {formType, normalActionType, thunkActionType} from "../../global/types";
 import api from "../../global/api";
 import {request} from "../../global/actions/index";
 import FormActionTypes from "./formActionTypes";
+import {valuesType} from "./FormDetail";
 
 export const getFormDetail: thunkActionType = (id: number) => dispatch => {
     dispatch(request({
@@ -22,4 +23,25 @@ const getFormDetailPending: normalActionType = () => ({
 });
 const getFormDetailError: normalActionType = () => ({
     type: FormActionTypes.GET_FORM_DETAIL_ERROR,
+});
+
+export const submitFormDetail: thunkActionType = (id: number, data: valuesType) => dispatch => {
+    dispatch(request({
+        url: `${api.forms}/${id}`,
+        method: 'post',
+        data,
+        successAction: submitFormSuccess,
+        errorAction: submitFormError,
+        pendingAction: submitFormPending
+    }))
+};
+
+const submitFormSuccess: normalActionType = () => ({
+    type: FormActionTypes.SUBMIT_FORM_SUCCESS,
+});
+const submitFormPending: normalActionType = () => ({
+    type: FormActionTypes.SUBMIT_FORM_PENDING,
+});
+const submitFormError: normalActionType = () => ({
+    type: FormActionTypes.SUBMIT_FORM_ERROR,
 });
