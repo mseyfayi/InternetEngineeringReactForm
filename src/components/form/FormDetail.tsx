@@ -31,16 +31,26 @@ const FormDetail = ({fields}: PropsType) => {
     const getError = (name: string): string | null => errors[name];
     const getTouched = (name: string): boolean => touched[name];
 
-    const getHandleChange = (name: string) => (value: IFormInputValuesType) => setValues({...values, [name]: value});
     const getHandleError = (name: string) => (error: string | null) => setErrors({...errors, [name]: error});
     const getHandleTouched = (name: string) => () => setTouched({...touched, [name]: true});
+    const getHandleChange = (name: string) => (value: IFormInputValuesType) => {
+        setValues({...values, [name]: value});
+        getHandleError(name)(null);
+    };
 
     const submit = () => {
+        let isOk = true;
         fields
             .filter(item => item.required)
             .map(item => item.name)
             .filter(name => !getValue(name))
-            .forEach(name => getHandleError(name)('required'))
+            .forEach(name => {
+                isOk = false;
+                getHandleTouched(name)();
+                getHandleError(name)('required')
+            });
+        if (isOk)
+            console.log(JSON.stringify(values));
     };
 
     return (
