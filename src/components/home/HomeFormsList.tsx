@@ -1,5 +1,5 @@
 import React from "react";
-import {List} from "@material-ui/core";
+import {List, Typography} from "@material-ui/core";
 import {formType} from "../../global/types";
 import HomeFormsListItem from "./HomeFormsListItem";
 
@@ -9,7 +9,11 @@ interface PropsType {
 
 const HomeFormsList = ({data}: PropsType) =>
     <List component="nav" className='border'>
-        {data.map(item => <HomeFormsListItem key={item.id} item={item}/>)}
+        {data.length === 0 ?
+            <Typography variant='subtitle2' align='center' color='textSecondary'>
+                List is empty
+            </Typography> :
+            data.map(item => <HomeFormsListItem key={item.id} item={item}/>)}
     </List>;
 
 export default HomeFormsList

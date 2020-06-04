@@ -19,7 +19,7 @@ const HomeContainer = ({getForms, formsData, formsIsLoading}: (PropsType & any))
 
     return (
         <MyContainer>
-            <div className='flex-1 flex-column align-items-center m-2'>
+            <div className='flex-1 flex-column align-items-center justify-content-center m-2'>
                 <Typography variant='h4'>
                     List of forms
                 </Typography>
