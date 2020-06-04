@@ -8,7 +8,7 @@ interface Props {
 
 const IsLoading = ({isLoading, children}: Props) =>
     isLoading ?
-        <div className='d-flex align-items-center'>
+        <div className='d-flex align-items-center justify-content-center'>
             <CircularProgress/>
         </div> :
         <React.Fragment>
