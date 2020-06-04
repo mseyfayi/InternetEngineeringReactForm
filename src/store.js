@@ -16,7 +16,7 @@ const store = createStore(
     reducer,
     applyMiddleware(
         thunk,
-        logger
+        process.env.NODE_ENV === 'development' ? logger : null
     )
 );
 

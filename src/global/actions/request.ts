@@ -3,7 +3,7 @@ import renderToast, {toastTypes} from "./renderToast";
 import {requestOptionType, thunkActionType} from "../types";
 
 const instance = Axios.create({
-    baseURL: 'http://localhost:3001',
+    baseURL: process.env.REACT_APP_HOST,
     timeout: 7000,
     params: {},
     headers: {
