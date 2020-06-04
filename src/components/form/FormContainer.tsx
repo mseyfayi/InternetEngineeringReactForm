@@ -34,7 +34,7 @@ const FormContainer = ({formDetailIsLoading, submitFormIsLoading, formTitle, for
                     <Typography variant='h5'>
                         {`${formTitle} "${formId}"`}
                     </Typography>
-                    <FormDetail fields={formFields} submitForm={handleSubmit}/>
+                    <FormDetail fields={formFields} submitForm={handleSubmit} submitIsLoading={submitFormIsLoading}/>
                 </Container>
             </IsLoading>
         </MyContainer>

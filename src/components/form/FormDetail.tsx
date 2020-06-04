@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {fieldType, IFormInputValuesType} from "../../global/types";
 import FormField from './formField';
-import {Button} from '@material-ui/core';
+import {MyButton} from "../../global/components";
 
 export type valuesType = {
     [key: string]: IFormInputValuesType;
@@ -9,8 +9,9 @@ export type valuesType = {
 
 interface PropsType {
     fields: Array<fieldType>;
+    submitIsLoading: boolean;
 
-    submitForm(data: valuesType, callback: () => void): void;
+    submitForm(data: valuesType, callback: (...args: any) => void): void;
 }
 
 type errorType = {
@@ -29,14 +30,10 @@ function getInitialState(fields: Array<fieldType>, initialValue: any) {
     }), {});
 }
 
-const FormDetail = ({fields, submitForm}: PropsType) => {
+const FormDetail = ({fields, submitForm, submitIsLoading}: PropsType) => {
     const [values, setValues] = useState<valuesType>(getInitialState(fields, null));
     const [errors, setErrors] = useState<errorType>(getInitialState(fields, null));
     const [touched, setTouched] = useState<touchedType>(getInitialState(fields, false));
-
-    const getValue = (name: string): IFormInputValuesType => values[name];
-    const getError = (name: string): string | null => errors[name];
-    const getTouched = (name: string): boolean => touched[name];
 
     const getHandleError = (name: string) => (error: string | null) =>
         setErrors(preErrors => ({
@@ -56,12 +53,16 @@ const FormDetail = ({fields, submitForm}: PropsType) => {
         getHandleError(name)(null);
     };
 
+    useEffect(() => {
+        console.log(errors);
+        console.log(touched);
+        console.log(values);
+    }, [values, touched, errors]);
+
     const clearState = () => {
-        setTimeout(() => {
-            setValues(getInitialState(fields, null));
-            setErrors(getInitialState(fields, null));
-            setTouched(getInitialState(fields, false));
-        }, 1000);
+        setValues(getInitialState(fields, null));
+        setErrors(getInitialState(fields, null));
+        setTouched(getInitialState(fields, false));
     };
 
     const submit = () => {
@@ -69,15 +70,16 @@ const FormDetail = ({fields, submitForm}: PropsType) => {
         fields
             .filter(item => item.required)
             .map(item => item.name)
-            .filter(name => !getValue(name))
+            .filter(name => !values[name])
             .forEach(name => {
                 isOk = false;
                 getHandleTouched(name)();
                 getHandleError(name)('required')
             });
 
-        if (isOk)
+        if (isOk) {
             submitForm(values, clearState);
+        }
     };
 
     return (
@@ -87,21 +89,17 @@ const FormDetail = ({fields, submitForm}: PropsType) => {
                     {...item}
                     name={name}
                     key={name}
-                    touched={getTouched(name)}
-                    value={getValue(name)}
-                    error={getError(name)}
+                    touched={touched[name]}
+                    value={values[name]}
+                    error={errors[name]}
                     onBlur={getHandleTouched(name)}
                     onChange={getHandleChange(name)}
                 />
             )}
-            <Button
-                color="primary"
-                variant="contained"
-                className='m-1 mt-5 align-self-start col-5'
-                onClick={submit}
-            >
+
+            <MyButton onClick={submit} isLoading={submitIsLoading}>
                 Submit
-            </Button>
+            </MyButton>
         </div>
     );
 };
