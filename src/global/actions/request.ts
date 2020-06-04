@@ -45,6 +45,7 @@ const request: thunkActionType = (requestOption: requestOptionType) =>
             pendingAction,
             errorAction,
             successAction,
+            callback
         } = requestOption;
 
         // Start loading
@@ -103,6 +104,8 @@ const request: thunkActionType = (requestOption: requestOptionType) =>
                 }
             }
         }
+        if (callback)
+            callback()
     }
 ;
 export default request

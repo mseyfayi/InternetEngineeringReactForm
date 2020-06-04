@@ -25,14 +25,15 @@ const getFormDetailError: normalActionType = () => ({
     type: FormActionTypes.GET_FORM_DETAIL_ERROR,
 });
 
-export const submitFormDetail: thunkActionType = (id: number, data: valuesType) => dispatch => {
+export const submitForm: thunkActionType = (id: number, data: valuesType, callback: () => void) => dispatch => {
     dispatch(request({
         url: `${api.forms}/${id}`,
         method: 'post',
         data,
         successAction: submitFormSuccess,
         errorAction: submitFormError,
-        pendingAction: submitFormPending
+        pendingAction: submitFormPending,
+        callback
     }))
 };
 

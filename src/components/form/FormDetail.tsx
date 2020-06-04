@@ -3,12 +3,14 @@ import {fieldType, IFormInputValuesType} from "../../global/types";
 import FormField from './formField';
 import {Button} from '@material-ui/core';
 
-interface PropsType {
-    fields: Array<fieldType>;
-}
-
 export type valuesType = {
     [key: string]: IFormInputValuesType;
+}
+
+interface PropsType {
+    fields: Array<fieldType>;
+
+    submitForm(data: valuesType, callback: () => void): void;
 }
 
 type errorType = {
@@ -19,23 +21,47 @@ type touchedType = {
     [key: string]: boolean;
 }
 
-const FormDetail = ({fields}: PropsType) => {
-    const [values, setValues] = useState<valuesType>(fields.reduce((obj, field) => ({...obj, [field.name]: null}), {}));
-    const [errors, setErrors] = useState<errorType>(fields.reduce((obj, field) => ({...obj, [field.name]: null}), {}));
-    const [touched, setTouched] = useState<touchedType>(fields.reduce((obj, field) => ({
+
+function getInitialState(fields: Array<fieldType>, initialValue: any) {
+    return fields.reduce((obj, field) => ({
         ...obj,
-        [field.name]: false
-    }), {}));
+        [field.name]: initialValue
+    }), {});
+}
+
+const FormDetail = ({fields, submitForm}: PropsType) => {
+    const [values, setValues] = useState<valuesType>(getInitialState(fields, null));
+    const [errors, setErrors] = useState<errorType>(getInitialState(fields, null));
+    const [touched, setTouched] = useState<touchedType>(getInitialState(fields, false));
 
     const getValue = (name: string): IFormInputValuesType => values[name];
     const getError = (name: string): string | null => errors[name];
     const getTouched = (name: string): boolean => touched[name];
 
-    const getHandleError = (name: string) => (error: string | null) => setErrors({...errors, [name]: error});
-    const getHandleTouched = (name: string) => () => setTouched({...touched, [name]: true});
+    const getHandleError = (name: string) => (error: string | null) =>
+        setErrors(preErrors => ({
+            ...preErrors,
+            [name]: error
+        }));
+    const getHandleTouched = (name: string) => () =>
+        setTouched(preTouched => ({
+            ...preTouched,
+            [name]: true
+        }));
     const getHandleChange = (name: string) => (value: IFormInputValuesType) => {
-        setValues({...values, [name]: value});
+        setValues(preValues => ({
+            ...preValues,
+            [name]: value
+        }));
         getHandleError(name)(null);
+    };
+
+    const clearState = () => {
+        setTimeout(() => {
+            setValues(getInitialState(fields, null));
+            setErrors(getInitialState(fields, null));
+            setTouched(getInitialState(fields, false));
+        }, 1000);
     };
 
     const submit = () => {
@@ -49,8 +75,9 @@ const FormDetail = ({fields}: PropsType) => {
                 getHandleTouched(name)();
                 getHandleError(name)('required')
             });
+
         if (isOk)
-            console.log(JSON.stringify(values));
+            submitForm(values, clearState);
     };
 
     return (

@@ -22,23 +22,25 @@ export interface errorCodesType {
 }
 
 export interface requestOptionType {
-    method: axiosMethods,
-    data?: object,
-    params?: object,
-    url: string,
-    timeout?: number,
-    headers?: object,
-    toastTitle?: string,
-    successToastMessage?: string,
-    failToastMessage?: string,
-    errorCodes?: Array<errorCodesType>,
-    successAction: thunkActionType,
-    errorAction: thunkActionType,
-    pendingAction: thunkActionType,
+    method: axiosMethods;
+    data?: object;
+    params?: object;
+    url: string;
+    timeout?: number;
+    headers?: object;
+    toastTitle?: string;
+    successToastMessage?: string;
+    failToastMessage?: string;
+    errorCodes?: Array<errorCodesType>;
+    successAction: thunkActionType;
+    errorAction: thunkActionType;
+    pendingAction: thunkActionType;
 
-    resolve(response?: object): () => void,
+    callback?(): void;
 
-    reject(error?: any): () => void
+    resolve(response?: object): () => void;
+
+    reject(error?: any): () => void;
 }
 
 export interface optionType {
@@ -75,6 +77,7 @@ export interface IFormInputPropsType extends fieldType {
     value: IFormInputValuesType;
 
     onBlur(): void;
+
     onChange(value: IFormInputValuesType): void;
 }
 
